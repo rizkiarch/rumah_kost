@@ -16,6 +16,23 @@
         */you need to disable the background becasue the icon can repeat based on input size */
     }
 
+    input[type="datetime-local"] {
+        position: relative;
+    }
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: auto;
+        color: transparent;
+        background: transparent;
+        */you need to disable the background becasue the icon can repeat based on input size */
+    }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         /* display: none; <- Crashes Chrome on hover */
@@ -126,6 +143,14 @@
                             <label for="no_telpon"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Telpon</label>
                             <input type="number" autocomplete="off" name="no_telpon" id="no_telpon"
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                        </div>
+                        <div class="mb-4">
+                            <label for="tanggal_masuk"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
+                                Masuk</label>
+                            <input type="datetime-local" autocomplete="off" name="tanggal_masuk" id="tanggal_masuk"
+                                value="{{ now() }}"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
                         <!-- Grid layout untuk buttons -->

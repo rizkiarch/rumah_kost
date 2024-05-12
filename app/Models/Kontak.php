@@ -15,4 +15,9 @@ class Kontak extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

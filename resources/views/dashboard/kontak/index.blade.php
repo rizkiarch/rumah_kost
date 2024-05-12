@@ -25,6 +25,9 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                         Nomor Telepon</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Tanggal Masuk</th>
                                     <th scope="col" class="relative px-6 py-3"></th>
                                 </tr>
                             </thead>
@@ -45,6 +48,9 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
                                                 {{ $penghuni->no_telpon }}
                                             </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                                {{ date('Y-m-d', strtotime($penghuni->tanggal_masuk)) }}
+                                            </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <a href="{{ route('kontak.edit', $penghuni->id) }}"
                                                     class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-700">Edit</a>
@@ -64,7 +70,7 @@
                     </div>
 
                     <div class="mt-4">
-                        {{-- {{ $settings->links() }} --}}
+                        {{ $kontaks->links() }}
                     </div>
                 </div>
             </div>

@@ -148,6 +148,14 @@
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
                                 value="{{ $penghuni->no_telpon }}">
                         </div>
+                        <div class="mb-4">
+                            <label for="tanggal_masuk"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
+                                Masuk</label>
+                            <input type="datetime-local" autocomplete="off" name="tanggal_masuk" id="tanggal_masuk"
+                                value="{{ $penghuni->tanggal_masuk ?? now() }}"
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                        </div>
                         <!-- Grid layout untuk buttons -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>

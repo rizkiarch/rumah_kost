@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/setting', SettingController::class);
     Route::resource('/kontak', KontakController::class);
+    Route::resource('/jadwal', JadwalController::class);
 });
 route::resource('/test', TestController::class);
 

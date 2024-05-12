@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Kontak;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Jadwal;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 
 class KontakController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $title = "Kontak";
-        $kontak = Kontak::paginate(10);
+        // $kontaks = collect();
+
+        // Kontak::chunk(1000, function ($data) use ($kontaks) {
+        //     $kontaks->push($data);
+        // });
+        $kontaks = Kontak::paginate(10);
         return view('dashboard.kontak.index', [
             'title' => $title,
-            'kontaks' => $kontak
+            'kontaks' => $kontaks
         ]);
     }
 
@@ -39,18 +50,23 @@ class KontakController extends Controller
     {
         try {
             $data = $request->validate([
-                'nik' => 'required||max:16',
+                'nik' => 'nullable||max:16',
                 'nama_lengkap' => 'required',
-                'nama_panggilan' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'jenis_kelamin' => 'required',
-                'agama' => 'required',
-                'status_perkawinan' => 'required',
+                'nama_panggilan' => 'nullable',
+                'tempat_lahir' => 'nullable',
+                'tanggal_lahir' => 'nullable',
+                'jenis_kelamin' => 'nullable',
+                'agama' => 'nullable',
+                'status_perkawinan' => 'nullable',
                 'pekerjaan' => 'required',
                 'no_telpon' => 'required',
+                'tanggal_masuk' => 'required',
             ]);
+            $data['tanggal_masuk'] = Date::now();
+
             $kontak = Kontak::create($data);
+            $this->add_jadwal($kontak);
+
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             return response()->json([
@@ -59,6 +75,18 @@ class KontakController extends Controller
                 'error' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function add_jadwal($kontak)
+    {
+
+        $dateNow = Carbon::now();
+        $jadwal_kirim = $dateNow->addDays(30);
+        Jadwal::create([
+            'kontak_id' => $kontak->id,
+            'jadwal_kirim' => $jadwal_kirim,
+            'status' => 0
+        ]);
     }
 
     /**
@@ -89,16 +117,17 @@ class KontakController extends Controller
     {
         try {
             $data = $request->validate([
-                'nik' => 'required||max:16',
+                'nik' => 'nullable||max:16',
                 'nama_lengkap' => 'required',
-                'nama_panggilan' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'jenis_kelamin' => 'required',
-                'agama' => 'required',
-                'status_perkawinan' => 'required',
+                'nama_panggilan' => 'nullable',
+                'tempat_lahir' => 'nullable',
+                'tanggal_lahir' => 'nullable',
+                'jenis_kelamin' => 'nullable',
+                'agama' => 'nullable',
+                'status_perkawinan' => 'nullable',
                 'pekerjaan' => 'required',
                 'no_telpon' => 'required',
+                'tanggal_masuk' => 'required',
             ]);
             $kontak->update($data);
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil Diedit');

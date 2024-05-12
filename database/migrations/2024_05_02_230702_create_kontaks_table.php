@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
-            $table->string('nik');
+            $table->string('nik')->nullable();
             $table->string('nama_lengkap');
-            $table->string('nama_panggilan');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin');
-            $table->string('agama');
-            $table->string('status_perkawinan');
+            $table->string('nama_panggilan')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('agama')->nullable();
+            $table->string('status_perkawinan')->nullable();
             $table->string('pekerjaan');
             $table->string('no_telpon');
+            $table->dateTime('tanggal_masuk');
             $table->timestamps();
         });
     }
