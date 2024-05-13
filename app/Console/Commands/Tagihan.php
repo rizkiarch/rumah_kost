@@ -1,32 +1,38 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Console\Commands;
 
+use Carbon\Carbon;
+use App\Models\Jadwal;
 use App\Models\Setting;
 use App\Traits\WatsappTrait;
-use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
-class Tagihan implements ShouldQueue
+class Tagihan extends Command
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, WatsappTrait;
+    use WatsappTrait;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'tagihan:cron';
 
     /**
-     * Create a new job instance.
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Mengirim Tagihan';
+
+    /**
+     * Execute the console command.
      */
     public function __construct()
     {
-        //
+        parent::__construct();
     }
 
-    /**
-     * Execute the job.
-     */
     public function handle()
     {
         $jadwalAktif = Jadwal::where('status', 1)->with('kontak')->get();

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Kontak;
+use Illuminate\Support\Facades\Date;
 
 class TestController extends Controller
 {
@@ -27,27 +28,35 @@ class TestController extends Controller
     //     return view('test.index');
     // }
     {
-        // $jadwalAktif = DB::table('jadwals')->with('kontak')->where('status', 1)->get();
         $jadwalAktif = Jadwal::where('status', 1)->with('kontak')->get();
-        foreach ($jadwalAktif as $jadwal) {
-            // $tanggal_tagihan_berikutnya = $this->hitung_tanggal_tagihan_berikutnya($jadwal);
-            // $jadwal->update(['jadwal_kirim' => $tanggal_tagihan_berikutnya]);
-            $db_setting = Setting::first();
-            $message = $db_setting->format_text;
-            $phone = $jadwal->kontak->no_telpon;
 
-            $this->sendTextWatsapp($phone, $message);
+        foreach ($jadwalAktif as $jadwal) {
+            $tanggal_jadwal = Carbon::parse($jadwal->jadwal_kirim);
+            $waktu_jadwal = $tanggal_jadwal->format('H:i:s');
+
+            $tanggal_hari_ini = Carbon::now();
+            $waktu_hari_ini = $tanggal_hari_ini->format('H:i:s');
+            dd($waktu_hari_ini, $waktu_jadwal);
+            if ($tanggal_jadwal->isSameDay($tanggal_hari_ini) && $waktu_jadwal === $waktu_hari_ini) {
+                $tanggal_tagihan_berikutnya = $this->hitung_tanggal_tagihan_berikutnya($jadwal->jadwal_kirim);
+                $jadwal->update(['jadwal_kirim' => $tanggal_tagihan_berikutnya]);
+
+                $db_setting = Setting::first();
+                $message = $db_setting->format_text;
+                $phone = $jadwal->kontak->no_telpon;
+
+                $this->sendTextWatsapp($phone, $message);
+            }
         }
     }
 
-    public function hitung_tanggal_tagihan_berikutnya($jadwal)
+    public function hitung_tanggal_tagihan_berikutnya($get_tanggal)
     {
-        $intervalDetik = $jadwal->jadwal_berulang * 60;
+        $tanggal = Carbon::parse($get_tanggal);
+        $addDay = $tanggal->addDays(30);
 
-        $tanggal_tagihan_terakhir = $jadwal->jadwal_kirim;
+        $tanggal_tagihan_terakhir = $addDay;
 
-        $tanggal_tagihan_terakhir = Carbon::parse($tanggal_tagihan_terakhir)->addSeconds($intervalDetik);
-        // dd($tanggal_tagihan_terakhir);
         return $tanggal_tagihan_terakhir;
     }
 
