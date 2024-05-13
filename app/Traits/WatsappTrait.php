@@ -9,17 +9,18 @@ trait WatsappTrait
 
     public function __construct()
     {
-        $this->sender = Setting::latest()->value('no_telpon');
-        $this->sender = preg_replace('/[^0-9]/', '', $this->sender);
-        $this->sender = (str_starts_with($this->sender, '0')) ? '62' . substr($this->sender, 1) : $this->sender;
-        $sender = $this->sender;
+        //
     }
 
     public function sendTextWatsapp($phone, $message)
     {
-        $sender = $this->sender;
+        $sender = Setting::latest()->value('no_telpon');
+        $sender = preg_replace('/[^0-9]/', '', $sender);
+        $sender = (str_starts_with($sender, '0')) ? '62' . substr($sender, 1) : $sender;
+
         $phone = preg_replace('/[^0-9]/', '', $phone);
         $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
+
         $token = env('API_TOKEN_WATSAPP');
         $payload = [
             'api_key' => $token,

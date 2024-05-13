@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/setting', SettingController::class);
     Route::resource('/kontak', KontakController::class);
     Route::resource('/jadwal', JadwalController::class);
+    Route::resource('/laporan', LaporanController::class);
 });
 route::resource('/test', TestController::class);
 

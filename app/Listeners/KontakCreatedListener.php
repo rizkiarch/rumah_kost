@@ -24,7 +24,7 @@ class KontakCreatedListener
     {
         Jadwal::create([
             'kontak_id' => $event->kontak->id,
-            // 'jadwal_kirim' => now(), // Anda dapat mengatur waktu sesuai kebutuhan
+            // 'tanggal_kirim' => now(), // Anda dapat mengatur waktu sesuai kebutuhan
             'status' => 0,
         ]);
     }

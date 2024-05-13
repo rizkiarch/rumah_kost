@@ -81,10 +81,11 @@ class KontakController extends Controller
     {
 
         $dateNow = Carbon::now();
-        $jadwal_kirim = $dateNow->addDays(30);
+        $tanggal_kirim = $dateNow->addDays(30);
         Jadwal::create([
             'kontak_id' => $kontak->id,
-            'jadwal_kirim' => $jadwal_kirim,
+            'tanggal_kirim' => $tanggal_kirim,
+            'waktu_kirim' => Carbon::now('H:i:s'),
             'status' => 0
         ]);
     }

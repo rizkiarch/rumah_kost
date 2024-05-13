@@ -29,6 +29,9 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                         Tanggal Tagihan</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Waktu Tagihan</th>
                                     <th scope="col" class="relative px-6 py-3"></th>
                                 </tr>
                             </thead>
@@ -69,9 +72,15 @@
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
-                                                    <input type="datetime-local" name="jadwal_kirim" id="jadwal_kirim"
+                                                    <input type="date" name="tanggal_kirim" id="tanggal_kirim"
                                                         class="form-control mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                                        value="{{ $penghuni->jadwal_kirim ?? '' }}">
+                                                        value="{{ $penghuni->tanggal_kirim ?? '' }}">
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                                    <input type="time" name="waktu_kirim" id="waktu_kirim"
+                                                        class="form-control mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
+                                                        value="{{ $penghuni->waktu_kirim ?? '' }}">
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <button type="submit"
@@ -95,13 +104,13 @@
     <script>
         // Get today's date in ISO 8601 format (YYYY-MM-DD)
         var today = new Date().toISOString().split('T')[0];
-        document.getElementById('jadwal_kirim{{ $penghuni->id }}').setAttribute('min', today);
+        document.getElementById('tanggal_kirim{{ $penghuni->id }}').setAttribute('min', today);
     </script>
     {{-- <script>
         function updateData(id) {
             var kontak_id = document.getElementById('kontak_id_' + id).value;
             var status = document.getElementById('status_' + id).value; // Ambil value dari select dengan id tertentu
-            var jadwal_kirim = document.getElementById('jadwal_kirim_' + id).value;
+            var tanggal_kirim = document.getElementById('tanggal_kirim_' + id).value;
             // Ambil value dari input date dengan id tertentu
             var token = '{{ csrf_token() }}';
 
@@ -122,12 +131,12 @@
                 }
             };
 
-            var formData = 'status=' + encodeURIComponent(status) + '&jadwal_kirim=' + encodeURIComponent(jadwal_kirim);
+            var formData = 'status=' + encodeURIComponent(status) + '&tanggal_kirim=' + encodeURIComponent(tanggal_kirim);
             xhr.send(formData);
             // function updateData(id) {
             //     let kontak_id = document.getElementById('kontak_id_' + id).value;
             //     let status = document.getElementById('status_' + id).value;
-            //     let jadwal_kirim = document.getElementById('jadwal_kirim_' + id).value;
+            //     let tanggal_kirim = document.getElementById('tanggal_kirim_' + id).value;
 
             //     fetch('/jadwal/' + id, {
             //             method: 'PUT',
@@ -138,7 +147,7 @@
             //             body: JSON.stringify({
             //                 kontak_id: kontak_id,
             //                 status: status,
-            //                 jadwal_kirim: jadwal_kirim
+            //                 tanggal_kirim: tanggal_kirim
             //             })
             //         })
             //         .then(response => {

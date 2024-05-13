@@ -12,9 +12,7 @@ Artisan::command('inspire', function () {
 
 Schedule::command('tagihan:cron')
     ->everyMinute()
-    ->onSuccess(function () {
-        \Log::info('Fungsi tagihan cron job completed successfully.');
-    })->onFailure(function (Throwable $exception) {
+    ->onFailure(function (Throwable $exception) {
         \Log::error('Tagihan cron job failed: ' . $exception->getMessage());
     });
 

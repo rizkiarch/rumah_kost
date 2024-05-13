@@ -31,4 +31,9 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Kontak::class);
     }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class);
+    }
 }

@@ -41,7 +41,8 @@ class JadwalController extends Controller
             $validatedData = request()->validate([
                 'kontak_id' => 'required',
                 'status' => 'required',
-                'jadwal_kirim' => 'required',
+                'tanggal_kirim' => 'required',
+                'waktu_kirim' => 'required',
             ]);
 
             $jadwal = Jadwal::updateOrCreate(
@@ -50,8 +51,11 @@ class JadwalController extends Controller
             );
 
             $jadwal->update();
+            toastr()->success('Data has been saved successfully!');
             return redirect()->route('jadwal.index')->with('Success', 'Data berhasil Diperbarui');
         } catch (\Throwable $th) {
+            toastr()->error('Data has been saved failed!');
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message failed to send',
@@ -81,26 +85,26 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $request->validate([
-                'kontak_id' => 'required',
-                'status' => 'required',
-                'tanggal_masuk' => 'required',
-            ]);
+        // try {
+        //     $request->validate([
+        //         'kontak_id' => 'required',
+        //         'status' => 'required',
+        //         'tanggal_masuk' => 'required',
+        //     ]);
 
-            $kontak = Kontak::findOrFail($id);
-            $kontak->kontak_id = $request->kontak_id;
-            $kontak->status = $request->status;
-            $kontak->tanggal_masuk = $request->tanggal_masuk;
-            $kontak->save($data);
-            return response()->json(['message' => 'Data berhasil diperbarui'], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Message failed to send',
-                'error' => $th->getMessage()
-            ], 500);
-        }
+        //     $kontak = Kontak::findOrFail($id);
+        //     $kontak->kontak_id = $request->kontak_id;
+        //     $kontak->status = $request->status;
+        //     $kontak->tanggal_masuk = $request->tanggal_masuk;
+        //     $kontak->save($data);
+        //     return response()->json(['message' => 'Data berhasil diperbarui'], 200);
+        // } catch (\Throwable $th) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Message failed to send',
+        //         'error' => $th->getMessage()
+        //     ], 500);
+        // }
     }
 
     /**
