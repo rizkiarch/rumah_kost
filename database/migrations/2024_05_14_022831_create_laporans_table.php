@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Jadwal::class)->constrained();
-            $table->dateTime('tanggal_terkirim');
-            $table->integer('status');
+            $table->date('tanggal_terkirim');
+            $table->string('status');
             $table->timestamps();
         });
     }

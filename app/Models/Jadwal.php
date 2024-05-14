@@ -34,6 +34,6 @@ class Jadwal extends Model
 
     public function laporan()
     {
-        return $this->hasMany(Laporan::class);
+        return $this->hasOne(Laporan::class);
     }
 }

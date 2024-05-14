@@ -37,6 +37,7 @@ class KontakController extends Controller
      */
     public function create()
     {
+
         $title = "Tambah Kontak";
         return view('dashboard.kontak.create', [
             'title' => $title,
@@ -62,13 +63,14 @@ class KontakController extends Controller
                 'no_telpon' => 'required',
                 'tanggal_masuk' => 'required',
             ]);
-            $data['tanggal_masuk'] = Date::now();
-
+            // $data['tanggal_masuk'] = Date::now()->toDateString();
             $kontak = Kontak::create($data);
             $this->add_jadwal($kontak);
 
+            toastr()->success('Data berhasil disimpan!');
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
+            toastr()->error('Data gagal disimpan!');
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message failed to send',
@@ -85,7 +87,7 @@ class KontakController extends Controller
         Jadwal::create([
             'kontak_id' => $kontak->id,
             'tanggal_kirim' => $tanggal_kirim,
-            'waktu_kirim' => Carbon::now('H:i:s'),
+            'waktu_kirim' => Carbon::now()->format('H:i'),
             'status' => 0
         ]);
     }
@@ -131,8 +133,10 @@ class KontakController extends Controller
                 'tanggal_masuk' => 'required',
             ]);
             $kontak->update($data);
+            toastr()->success('Data berhasil diedit!');
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil Diedit');
         } catch (\Throwable $th) {
+            toastr()->error('Data gagal disimpan!');
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message failed to send',
@@ -148,8 +152,10 @@ class KontakController extends Controller
     {
         try {
             $kontak->delete();
+            toastr()->success('Data berhasil dihapus!');
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
+            toastr()->error('Data gagal disimpan!');
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message failed to send',

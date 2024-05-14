@@ -43,9 +43,11 @@ class SettingController extends Controller
         if ($setting_nomor) {
             $setting_nomor->format_text = $data['format_text'];
             $setting_nomor->save();
+            toastr()->success('Data berhasil disimpan!');
         } elseif ($setting_format_text) {
             $setting_format_text->no_telpon = $data['no_telpon'];
             $setting_format_text->save();
+            toastr()->success('Data berhasil disimpan!');
         } else {
             Setting::updateOrInsert($data);
         }

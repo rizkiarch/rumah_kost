@@ -10,9 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between mb-6">
-                        <h3 class="text-lg font-semibold">Daftar Kontak</h3>
-                        <a href="{{ route('kontak.create') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tambah</a>
+                        <h3 class="text-lg font-semibold">Daftar Laporan</h3>
                     </div>
 
                     <div class="overflow-x-auto">
@@ -46,11 +44,16 @@
                                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-600">
                                             <td
                                                 class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100 capitalize">
+                                                {{ $laporan->jadwal->kontak->nama_lengkap }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                                {{ $laporan->jadwal->kontak->no_telpon }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
-
+                                                {{ $laporan->tanggal_terkirim }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
+                                                {{ $laporan->status }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <a href="{{ route('kontak.edit', $laporan->id) }}"

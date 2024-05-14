@@ -51,11 +51,10 @@ class JadwalController extends Controller
             );
 
             $jadwal->update();
-            toastr()->success('Data has been saved successfully!');
+            toastr()->success('Data berhasil disimpan!');
             return redirect()->route('jadwal.index')->with('Success', 'Data berhasil Diperbarui');
         } catch (\Throwable $th) {
-            toastr()->error('Data has been saved failed!');
-
+            toastr()->error('Data gagal disimpan!');
             return response()->json([
                 'status' => 'error',
                 'message' => 'Message failed to send',

@@ -19,6 +19,6 @@ class Laporan extends Model
 
     public function jadwal()
     {
-        return $this->hasMany(Jadwal::class);
+        return $this->belongsTo(Jadwal::class);
     }
 }

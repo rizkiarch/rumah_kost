@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status_perkawinan')->nullable();
             $table->string('pekerjaan');
             $table->string('no_telpon');
-            $table->dateTime('tanggal_masuk');
+            $table->date('tanggal_masuk');
             $table->timestamps();
         });
     }

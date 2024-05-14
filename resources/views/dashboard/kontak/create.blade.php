@@ -149,8 +149,8 @@
                             <label for="tanggal_masuk"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
                                 Masuk</label>
-                            <input type="datetime" autocomplete="off" name="tanggal_masuk" id="tanggal_masuk"
-                                value="{{ now() }}"
+                            <input type="date" autocomplete="off" name="tanggal_masuk" id="tanggal_masuk"
+                                value="{{ date('Y-m-d') }}"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
                         <!-- Grid layout untuk buttons -->

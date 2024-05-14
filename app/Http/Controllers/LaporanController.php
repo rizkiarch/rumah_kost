@@ -14,7 +14,7 @@ class LaporanController extends Controller
     {
         $title = "Laporan";
 
-        $laporans = Laporan::paginate(10);
+        $laporans = Laporan::with(['jadwal'])->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.laporan.index', [
             'title' => $title,
             'laporans' => $laporans
