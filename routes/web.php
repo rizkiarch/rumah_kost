@@ -3,6 +3,7 @@
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/kontak', KontakController::class);
     Route::resource('/jadwal', JadwalController::class);
     Route::resource('/laporan', LaporanController::class);
+    Route::resource('/payment', PaymentController::class);
+    Route::get('/api/kontak/{id}', 'App\Http\Controllers\KontakController@getJsonKontak')->name('api.kontak');
 });
 route::resource('/test', TestController::class);
 

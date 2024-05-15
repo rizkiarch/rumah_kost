@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\Laporan;
+use App\Models\Setting;
+use App\Traits\WatsappTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class LaporanController extends Controller
 {
+    use WatsappTrait;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $title = "Laporan";
+
+
 
         $laporans = Laporan::with(['jadwal'])->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.laporan.index', [
@@ -34,7 +41,6 @@ class LaporanController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -50,7 +56,6 @@ class LaporanController extends Controller
      */
     public function edit(Laporan $laporan)
     {
-        //
     }
 
     /**
@@ -58,8 +63,38 @@ class LaporanController extends Controller
      */
     public function update(Request $request, Laporan $laporan)
     {
-        //
+        $phone = $laporan->jadwal->kontak->no_telpon;
+        $db_setting = Setting::first();
+        $message = $db_setting->format_text;
+        try {
+            $laporan->update([
+                'tanggal_terkirim' => Date::now(),
+                'status' => 'terkirim'
+            ]);
+
+            $this->sendTextWatsapp($phone, $message);
+
+            toastr()->success('Data berhasil dikirim ulang!');
+            return redirect()->route('laporan.index')->with('Success', 'Data berhasil dikirim ulang');
+        } catch (\Throwable $th) {
+            toastr()->error('Data gagal dikirim ulang!');
+            return redirect()->route('laporan.index')->with('Error', 'Data gagal dikirim ulang'); //throw $th;
+        }
     }
+    // {
+    //     // try {
+    //     //     $laporan = Laporan::updateOrCreate(
+    //     //         [
+    //     //             'tanggal_terkirim' => Date::now(),
+    //     //             'status' => 'terkirim'
+    //     //         ]
+    //     //     );
+    //     //     toastr()->success('Data berhasil dikirim ulang!');
+    //     //     return redirect()->route('laporan.index')->with('Success', 'Data berhasil dikirim ulang');
+    //     // } catch (\Throwable $th) {
+    //     //     //throw $th;
+    //     // }
+    // }
 
     /**
      * Remove the specified resource from storage.

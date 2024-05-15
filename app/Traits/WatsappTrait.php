@@ -26,7 +26,7 @@ trait WatsappTrait
             'api_key' => $token,
             'sender' => $sender,
             'number' => $phone,
-            'message' => $message . ' ' . date('Y-m-d')
+            'message' => $message
         ];
 
 

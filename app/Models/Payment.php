@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kontak extends Model
+class Payment extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,8 @@ class Kontak extends Model
      */
     protected $guarded = [];
 
-    public function jadwal()
+    public function kontak()
     {
-        return $this->hasMany(Jadwal::class);
-    }
-
-    public function payment()
-    {
-        return $this->hasMany(Payment::class);
+        return $this->belongsTo(Kontak::class);
     }
 }

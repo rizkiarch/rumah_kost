@@ -32,6 +32,40 @@ class KontakController extends Controller
         ]);
     }
 
+    public function getJsonKontak()
+    {
+        try {
+            $kontaks = []; // Initialize an empty array to store contacts
+
+            Kontak::chunk(1000, function ($data) use (&$kontaks) {
+                // Assuming 'data' contains an array of Kontakt objects
+                foreach ($data as $kontak) {
+                    // Extract relevant contact information (adjust based on your needs)
+                    $contactData = [
+                        'id' => $kontak->id,
+                        'nama_lengkap' => $kontak->nama_lengkap,
+                        'no_telpon' => $kontak->no_telpon,
+                        // Add other relevant contact properties
+                    ];
+                    $kontaks[] = $contactData; // Add formatted data to the contacts array
+                }
+            });
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Contacts retrieved successfully',
+                'data' => $kontaks, // Use 'data' instead of 'result' for clarity
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to retrieve contacts',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
