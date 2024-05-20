@@ -190,11 +190,12 @@ class KontakController extends Controller
             return redirect()->route('kontak.index')->with('Success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
             toastr()->error('Data gagal disimpan!');
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Message failed to send',
-                'error' => $th->getMessage()
-            ], 500);
+            return redirect()->route('kontak.index')->with('Success', 'Data berhasil dihapus');
+            // return response()->json([
+            //     'status' => 'error',
+            //     'message' => 'Message failed to send',
+            //     'error' => $th->getMessage()
+            // ], 500);
         }
     }
 }

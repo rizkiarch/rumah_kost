@@ -13,6 +13,24 @@
         height: auto;
         color: transparent;
         background: transparent;
+        */you need to disable the background becasue the icon can repeat based on input size */
+    }
+
+    input[type="datetime-local"] {
+        position: relative;
+    }
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: auto;
+        color: transparent;
+        background: transparent;
+        */you need to disable the background becasue the icon can repeat based on input size */
     }
 
     input::-webkit-outer-spin-button,
@@ -39,127 +57,50 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('kontak.update', $penghuni->id) }}" method="POST">
+                    <form action="{{ route('payment.update', $payment->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <label for="nik"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">NIK</label>
-                            <input type="number" autocomplete="off" name="nik" id="nik"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->nik }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="nama_lengkap"
+                            <label for="kontak_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama
                                 Lengkap</label>
-                            <input type="text" autocomplete="off" name="nama_lengkap" id="nama_lengkap"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->nama_lengkap }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="nama_panggilan"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama
-                                Panggilan</label>
-                            <input type="text" autocomplete="off" name="nama_panggilan" id="nama_panggilan"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->nama_panggilan }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="tempat_lahir"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tempat
-                                Lahir</label>
-                            <input type="text" autocomplete="off" name="tempat_lahir" id="tempat_lahir"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->tempat_lahir }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="tanggal_lahir"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
-                                Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="tanggal_lahir"
-                                class="form-control mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->tanggal_lahir }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="jenis_kelamin"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Jenis
-                                Kelamin</label>
-                            <select name="jenis_kelamin" id="jenis_kelamin"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
-                                <option value="L" @if ($penghuni->jenis_kelamin == 'L') selected @endif>Laki-laki
-                                </option>
-                                <option value="P" @if ($penghuni->jenis_kelamin == 'P') selected @endif>Perempuan
-                                </option>
+                            <select name="kontak_id" id="kontak_id" required
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                @foreach ($kontaks as $kontak)
+                                    <option value="{{ $kontak->id }}"
+                                        @if ($payment->kontak_id == $kontak->id) selected @endif>
+                                        {{ $kontak->nama_lengkap }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label for="agama"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Agama</label>
-                            <select name="agama" id="agama"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
-                                <option value="Islam" @if ($penghuni->agama == 'Islam') selected @endif>Islam</option>
-                                <option value="Katholik" @if ($penghuni->agama == 'Katholik') selected @endif>Katholik
-                                </option>
-                                <option value="Kristen" @if ($penghuni->agama == 'Kristen') selected @endif>Kristen
-                                </option>
-                                <option value="Buddha" @if ($penghuni->agama == 'Buddha') selected @endif>Buddha</option>
-                                <option value="Hindu" @if ($penghuni->agama == 'Hindu') selected @endif>Hindu</option>
-                                <option value="Khonghucu" @if ($penghuni->agama == 'Khonghucu') selected @endif>Khonghucu
-                                </option>
-                                <option value="Kepercayaan Terhadap Tuhan YME"
-                                    @if ($penghuni->agama == 'Kepercayaan Terhadap Tuhan YME') selected @endif>Kepercayaan Terhadap Tuhan YME
-                                </option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label for="status_perkawinan"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status
-                                Perkawinan</label>
-                            <select name="status_perkawinan" id="status_perkawinan"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
-                                <option value="Lajang" @if ($penghuni->status_perkawinan == 'Lajang') selected @endif>Lajang</option>
-                                <option value="Menikah" @if ($penghuni->status_perkawinan == 'Menikah') selected @endif>Menikah
-                                </option>
-                                <option value="Duda/Janda" @if ($penghuni->status_perkawinan == 'Duda/Janda') selected @endif>
-                                    Duda/Janda</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label for="pekerjaan"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pekerjaan</label>
-                            <select name="pekerjaan" id="pekerjaan"
-                                class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
-                                <option value="Tidak Bekerja" @if ($penghuni->pekerjaan == 'Tidak Bekerja') selected @endif>Tidak
-                                    Bekerja</option>
-                                <option value="Mahasiswa/Pelajar" @if ($penghuni->pekerjaan == 'Mahasiswa/Pelajar') selected @endif>
-                                    Mahasiswa/Pelajar</option>
-                                <option value="Karyawan Swasta" @if ($penghuni->pekerjaan == 'Karyawan Swasta') selected @endif>
-                                    Karyawan Swasta</option>
-                                <option value="Wirausaha" @if ($penghuni->pekerjaan == 'Wirausaha') selected @endif>Wirausaha
-                                </option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
+                        {{-- <div class="mb-4">
                             <label for="no_telpon"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Telpon</label>
                             <input type="number" autocomplete="off" name="no_telpon" id="no_telpon"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
-                                value="{{ $penghuni->no_telpon }}">
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                        </div> --}}
+                        <div class="mb-4">
+                            <label for="tanggal_pembayaran"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
+                                Pembayaran</label>
+                            <input type="date" autocomplete="off" name="tanggal_pembayaran" id="tanggal_pembayaran"
+                                value="{{ $payment->tanggal_masuk ?? date('Y-m-d') }}"
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
                         <div class="mb-4">
-                            <label for="tanggal_masuk"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
-                                Masuk</label>
-                            <input type="date" autocomplete="off" name="tanggal_masuk" id="tanggal_masuk"
-                                value="{{ $penghuni->tanggal_masuk ?? now() }}"
+                            <label for="nominal"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nominal
+                                Pembayaran</label>
+                            <input type="text" autocomplete="off" name="nominal" id="nominal"
+                                onkeyup="formatRupiah(this)" value="{{ $payment->nominal ?? '' }}"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
                         <!-- Grid layout untuk buttons -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <!-- Button "Back" di pojok kiri bawah -->
-                                <a href="{{ route('kontak.index') }}"
+                                <!-- Button " Back" di pojok kiri bawah -->
+                                <a href="{{ route('laporan.index') }}"
                                     class="mt-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg">Back</a>
                             </div>
                             <div class="text-right">
@@ -175,6 +116,29 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+    {{-- <script>
+        document.getElementById('nama_lengkap').addEventListener('change', function() {
+            const selectedId = this.value;
+            const phoneInput = document.getElementById('no_telpon');
 
-<script></script>
+            // Assuming you have a way to fetch contact data by ID (replace with your actual logic)
+            fetch(`/api/kontak/${selectedId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data.data)) {
+                        const phoneNumbers = data.data.map(contact => contact.no_telpon);
+                        console.log(phoneNumbers);
+                        phoneInput.value = phoneNumbers[0]; // Access the first phone number
+                    } else {
+                        console.error('Unexpected data format. Please check API response.');
+                        // Handle non-array data appropriately
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching contact data:', error);
+                    // Handle errors appropriately (e.g., display an error message to the user)
+                    alert('Failed to retrieve contact information. Please try again later.');
+                });
+        });
+    </script> --}}
+</x-app-layout>

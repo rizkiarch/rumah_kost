@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Laporan;
+use App\Models\Payment;
 use App\Models\Setting;
 use App\Traits\WatsappTrait;
 use Illuminate\Http\Request;
@@ -22,9 +23,11 @@ class LaporanController extends Controller
 
 
         $laporans = Laporan::with(['jadwal'])->orderBy('id', 'desc')->paginate(5);
+        $payments = Payment::with(['kontak'])->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.laporan.index', [
             'title' => $title,
-            'laporans' => $laporans
+            'laporans' => $laporans,
+            'payments' => $payments
         ]);
     }
 

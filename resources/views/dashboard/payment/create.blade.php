@@ -60,10 +60,10 @@
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
                         <div class="mb-4">
-                            <label for="nama_lengkap"
+                            <label for="kontak_id"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama
                                 Lengkap</label>
-                            <select name="nama_lengkap" id="nama_lengkap" required
+                            <select name="kontak_id" id="kontak_id" required
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                                 <option>===Pilih Penghuni Kost===</option>
                                 @foreach ($kontaks as $kontak)
@@ -71,12 +71,12 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
+                        {{-- <div class="mb-4">
                             <label for="no_telpon"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Telpon</label>
                             <input type="number" autocomplete="off" name="no_telpon" id="no_telpon"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
-                        </div>
+                        </div> --}}
                         <div class="mb-4">
                             <label for="tanggal_pembayaran"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
@@ -113,20 +113,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function formatRupiah(angka) {
-            const number = parseFloat(angka.value.replace(/[^0-9]/g, '')); // Remove non-numeric characters
-            const rupiah = 'Rp. ';
-            const separator = '.';
-            const decimals = 2;
-
-            if (isNaN(number)) {
-                angka.value = "";
-                return;
-            }
-
-            angka.value = rupiah + number.toFixed(decimals).replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1${separator}`);
-        }
+    {{-- <script>
         document.getElementById('nama_lengkap').addEventListener('change', function() {
             const selectedId = this.value;
             const phoneInput = document.getElementById('no_telpon');
@@ -135,9 +122,14 @@
             fetch(`/api/kontak/${selectedId}`)
                 .then(response => response.json())
                 .then(data => {
-                    phoneInput.value = data?.data.no_telpon; // Update phone number based on fetched data
-                    console.log(phoneInput.value); // Now logs the updated value after data is fetched
-                    alert('good');
+                    if (Array.isArray(data.data)) {
+                        const phoneNumbers = data.data.map(contact => contact.no_telpon);
+                        console.log(phoneNumbers);
+                        phoneInput.value = phoneNumbers[0]; // Access the first phone number
+                    } else {
+                        console.error('Unexpected data format. Please check API response.');
+                        // Handle non-array data appropriately
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching contact data:', error);
@@ -145,5 +137,5 @@
                     alert('Failed to retrieve contact information. Please try again later.');
                 });
         });
-    </script>
+    </script> --}}
 </x-app-layout>
