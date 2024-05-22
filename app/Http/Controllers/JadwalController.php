@@ -17,7 +17,7 @@ class JadwalController extends Controller
         $jadwals = Jadwal::with('kontak')->get();
         $kontaks = Kontak::with('jadwal')->get();
         // dd($jadwals);
-        return view('dashboard.jadwal.index', [
+        return view('dashboard.pengaturan.jadwal.index', [
             'title' => $title,
             'jadwals' => $jadwals,
             'kontaks' => $kontaks

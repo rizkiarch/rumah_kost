@@ -66,16 +66,21 @@ class LaporanController extends Controller
      */
     public function update(Request $request, Laporan $laporan)
     {
-        $phone = $laporan->jadwal->kontak->no_telpon;
-        $db_setting = Setting::first();
-        $message = $db_setting->format_text;
         try {
+            $phone = $laporan->jadwal->kontak->no_telpon;
+            $db_setting = Setting::first();
+            $message = $db_setting->format_text;
+            $payload = [
+                'phone' => $phone,
+                'message' => $message
+            ];
             $laporan->update([
                 'tanggal_terkirim' => Date::now(),
                 'status' => 'terkirim'
             ]);
 
-            $this->sendTextWatsapp($phone, $message);
+            // $this->sendTextWatsapp($phone, $message);
+            $this->sendMessage($payload);
 
             toastr()->success('Data berhasil dikirim ulang!');
             return redirect()->route('laporan.index')->with('Success', 'Data berhasil dikirim ulang');

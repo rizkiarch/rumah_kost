@@ -50,6 +50,10 @@ class Tagihan extends Command
                     $db_setting = Setting::first();
                     $message = $db_setting->format_text;
                     $phone = $jadwal->kontak->no_telpon;
+                    $payload = [
+                        'phone' => $phone,
+                        'message' => $message
+                    ];
 
                     $tanggal_tagihan_berikutnya = $this->hitung_tanggal_tagihan_berikutnya($jadwal->tanggal_kirim);
                     $this->add_laporan($jadwal);
@@ -59,10 +63,9 @@ class Tagihan extends Command
                         ->first();
 
                     if ($laporan) {
-                        $this->sendTextWatsapp($phone, $message);
+                        $this->sendMessage($payload);
                         $jadwal->update([
                             'tanggal_kirim' => $tanggal_tagihan_berikutnya,
-                            'jadwal_berulang' => 0,
                         ]);
                         $laporan->update([
                             'tanggal_terkirim' => Carbon::now(),
@@ -83,7 +86,7 @@ class Tagihan extends Command
 
             }
         } catch (\Throwable $th) {
-            \Log::info("Gagal Mengirim Tagihan di jalankan " . date('Y-m-d H:i:s'));
+            \Log::info("Gagal Mengirim Tagihan di jalankan " . date('Y-m-d H:i:s') . $th->getMessage());
         }
     }
     public function hitung_tanggal_tagihan_berikutnya($tanggal_kirim)

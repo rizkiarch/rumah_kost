@@ -89,49 +89,4 @@ trait WatsappTrait
 
         return $result; // tambahkan ini untuk mengembalikan respons dari curl
     }
-
-    public static function sendMessage($payload = [])
-    {
-        if (!is_array($payload)) {
-            throw new \Exception("Payload must be an array", 400);
-        }
-
-        $url = env('DOMAIN_SERVER_WATSAPP') . "/send-message";
-        $email = env('EMAIL_SERVER_WATSAPP');
-        $password =  env('PASSWORD_SERVER_WATSAPP');
-        $credentials = base64_encode("$email:$password");
-        $defaultHeaders = array_merge([
-            "X-Requested-With: XMLHttpRequest",
-            "Authorization: Basic $credentials"
-        ]);
-
-
-        if (isset($payload['attachment'])) {
-            if (!file_exists($payload['attachment'])) {
-                throw new \Exception("File not found", 404);
-            }
-            $full_path = realpath($payload['attachment']);
-            $payload['attachment'] = new \CurlFile($full_path, mime_content_type($full_path), basename($full_path));
-            $defaultHeaders = array_merge([
-                "Content-Type: multipart/form-data"
-            ], $defaultHeaders);
-        }
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        // $payload = json_encode($payload);
-        // dd($payload);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $defaultHeaders);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($result, true) ?? [];
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if ($httpcode == 200) {
-            return $response['data'] ?? [];
-        } else {
-            throw new \Exception($response['message'] ?? "Failed to send message", $httpcode);
-        }
-    }
 }

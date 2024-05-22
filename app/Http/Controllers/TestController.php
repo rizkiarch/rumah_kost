@@ -42,11 +42,16 @@ class TestController extends Controller
             $db_setting = Setting::first();
             $message = $db_setting->format_text;
             $phone = $request->input('phone');
+            $headers = $request->headers->all();
+            $payload = [
+                'phone' => $phone,
+                'message' => $message
+            ];
             // $phone = Setting::get('no_telpon');
             // $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
 
             // $message = Setting::get('format_text');
-            $result = $this->sendTextWatsapp($phone, $message);
+            $result = $this->sendMessage($payload, $headers);
             return response()->json([
                 'status' => 'success',
                 'message' => 'Message sent successfully',

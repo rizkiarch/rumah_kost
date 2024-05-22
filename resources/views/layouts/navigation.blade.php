@@ -6,7 +6,9 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                            Rumah Kost
+                        </h2>
                     </a>
                 </div>
 
@@ -17,26 +19,88 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('kontak.index')" :active="request()->routeIs('kontak.index')">
-                        {{ __('Kontak') }}
-                    </x-nav-link>
+                <!-- Data Master Dropdown -->
+                <div class="hidden sm:flex sm:items-center sm:ms-10">
+                    <x-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ __('Data Master') }}</div>
+
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('kost.index')" :active="request()->routeIs('kost.index')">
+                                {{ __('Kost') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('kontak.index')" :active="request()->routeIs('kontak.index')">
+                                {{ __('Kontak') }}
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-dropdown>
                 </div>
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('laporan.index')" :active="request()->routeIs('laporan.index')">
                         {{ __('Laporan') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
                         {{ __('Jadwal') }}
                     </x-nav-link>
+                </div> --}}
+
+                <!-- Pengaturan Dropdown -->
+                <div class="hidden sm:flex sm:items-center sm:ms-10">
+                    <x-dropdown align="left" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                <div>{{ __('Pengaturan') }}</div>
+
+                                <div class="ms-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+
+                            @if (Auth::user()->role === 'admin')
+                                <x-dropdown-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                                    {{ __('User') }}
+                                </x-dropdown-link>
+                            @endif
+                            <x-dropdown-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
+                                {{ __('Jadwal') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('perangkat.index')" :active="request()->routeIs('perangkat.index')">
+                                {{ __('Perangkat') }}
+                            </x-dropdown-link>
+
+                        </x-slot>
+                    </x-dropdown>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('perangkat.index')" :active="request()->routeIs('perangkat.index')">
                         {{ __('Pengaturan') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -68,8 +132,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -106,6 +169,11 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('kontak.index')" :active="request()->routeIs('kontak.index')">
+                {{ __('Kost') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('laporan.index')" :active="request()->routeIs('laporan.index')">
                 {{ __('Laporan') }}
             </x-responsive-nav-link>
@@ -116,8 +184,8 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('setting.index')" :active="request()->routeIs('setting.index')">
-                {{ __('Pengaturan') }}
+            <x-responsive-nav-link :href="route('perangkat.index')" :active="request()->routeIs('perangkat.index')">
+                {{ __('Perangkat') }}
             </x-responsive-nav-link>
         </div>
 
@@ -138,8 +206,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                        onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>

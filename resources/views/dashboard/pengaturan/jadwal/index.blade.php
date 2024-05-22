@@ -39,7 +39,7 @@
                                 @if ($jadwals->isEmpty())
                                     <tr>
                                         <td colspan="3"
-                                            class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100 text-center">
+                                            class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100 text-right">
                                             Tidak ada data </td>
                                     </tr>
                                 @else
@@ -101,11 +101,11 @@
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         // Get today's date in ISO 8601 format (YYYY-MM-DD)
         var today = new Date().toISOString().split('T')[0];
         document.getElementById('tanggal_kirim{{ $penghuni->id }}').setAttribute('min', today);
-    </script>
+    </script> --}}
     {{-- <script>
         function updateData(id) {
             var kontak_id = document.getElementById('kontak_id_' + id).value;

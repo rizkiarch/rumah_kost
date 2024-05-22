@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'ikay@rumahkost.com',
             'email_verified_at' => now(),
             'password' => Hash::make('12345'),
+            'role' => 'admin',
             'created_at' => now(),
             'updated_at' => now(),
             'status' => 'active',

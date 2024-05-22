@@ -84,8 +84,8 @@
                             <label for="tanggal_pembayaran"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal
                                 Pembayaran</label>
-                            <input type="date" autocomplete="off" name="tanggal_pembayaran" id="tanggal_pembayaran"
-                                value="{{ $payment->tanggal_masuk ?? date('Y-m-d') }}"
+                            <input readonly type="date" autocomplete="off" name="tanggal_pembayaran"
+                                id="tanggal_pembayaran" value="{{ $payment->tanggal_masuk ?? date('Y-m-d') }}"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
                         <div class="mb-4">

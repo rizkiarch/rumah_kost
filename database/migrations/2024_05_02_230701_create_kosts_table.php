@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Kontak;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('kosts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Kontak::class)->constrained()->cascadeOnDelete();
-            $table->date('tanggal_kirim');
-            $table->time('waktu_kirim');
-            $table->boolean('status')->default(false);
+            $table->string('kode');
+            $table->string('nama_kost');
+            $table->float('nominal');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('kosts');
     }
 };

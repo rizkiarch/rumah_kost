@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Jadwal;
+use App\Models\Kost;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -26,7 +27,7 @@ class KontakController extends Controller
         //     $kontaks->push($data);
         // });
         $kontaks = Kontak::paginate(10);
-        return view('dashboard.kontak.index', [
+        return view('dashboard.data_master.kontak.index', [
             'title' => $title,
             'kontaks' => $kontaks
         ]);
@@ -71,10 +72,11 @@ class KontakController extends Controller
      */
     public function create()
     {
-
+        $kosts = Kost::cursor();
         $title = "Tambah Kontak";
-        return view('dashboard.kontak.create', [
+        return view('dashboard.data_master.kontak.create', [
             'title' => $title,
+            'kosts' => $kosts,
         ]);
     }
 
@@ -95,6 +97,7 @@ class KontakController extends Controller
                 'status_perkawinan' => 'nullable',
                 'pekerjaan' => 'required',
                 'no_telpon' => 'required',
+                'kost_id' => 'required',
                 'tanggal_masuk' => 'required',
             ]);
             // $data['tanggal_masuk'] = Date::now()->toDateString();
@@ -122,7 +125,7 @@ class KontakController extends Controller
             'kontak_id' => $kontak->id,
             'tanggal_kirim' => $tanggal_kirim,
             'waktu_kirim' => Carbon::now()->format('H:i'),
-            'status' => 0
+            'status' => 1
         ]);
     }
 
@@ -141,7 +144,7 @@ class KontakController extends Controller
     {
         $title = "Edit Kontak";
         // dd($kontak);
-        return view('dashboard.kontak.edit', [
+        return view('dashboard.data_master.kontak.edit', [
             'title' => $title,
             'penghuni' => $kontak
         ]);

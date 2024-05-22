@@ -145,6 +145,18 @@
                             <input type="number" autocomplete="off" name="no_telpon" id="no_telpon"
                                 class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>
+
+                        <div class="mb-4">
+                            <label for="kost_id"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama Kost</label>
+                            <select name="kost_id" id="kost_id" required
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                <option value="">===Pilih Kost===</option>
+                                @foreach ($kosts as $kost)
+                                    <option value="{{ $kost->id }}">{{ $kost->nama_kost }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="mb-4">
                             <label for="tanggal_masuk"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal

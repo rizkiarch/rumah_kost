@@ -14,7 +14,7 @@ class SettingController extends Controller
     {
         $title = "Pengaturan";
         $setting = Setting::first();
-        return view('dashboard.pengaturan.index', [
+        return view('dashboard.pengaturan.perangkat.index', [
             'title' => $title,
             'setting' => $setting
         ]);
@@ -53,7 +53,7 @@ class SettingController extends Controller
         }
 
 
-        return redirect()->route('setting.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('perangkat.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**

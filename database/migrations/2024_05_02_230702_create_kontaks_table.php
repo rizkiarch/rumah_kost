@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Kost;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('status_perkawinan')->nullable();
             $table->string('pekerjaan');
             $table->string('no_telpon');
+            $table->foreignIdFor(Kost::class)->constrained()->cascadeOnUpdate();
             $table->date('tanggal_masuk');
             $table->timestamps();
         });
