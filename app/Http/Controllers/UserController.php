@@ -54,6 +54,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'pengelola',
+            'status' => 'active,'
         ]);
 
         toastr()->success('Data berhasil disimpan!');
@@ -73,7 +74,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $title = 'Edit User';
+        return view('dashboard.pengaturan.pengguna.edit', [
+            'title' => $title,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -89,6 +94,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        try {
+            $user->delete();
+            toastr()->success('Data berhasil dihapus!');
+            return redirect()->route('user.index')->with('Success', 'Data berhasil dihapus');
+        } catch (\Throwable $th) {
+            toastr()->error('Data gagal disimpan!');
+            return redirect()->route('user.index')->with('Success', 'Data berhasil dihapus');
+        }
     }
 }

@@ -12,7 +12,7 @@ class KostController extends Controller
      */
     public function index()
     {
-        $title = "List Kost";
+        $title = "Daftar Kost";
         // $kontaks = collect();
 
         // Kontak::chunk(1000, function ($data) use ($kontaks) {

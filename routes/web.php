@@ -33,11 +33,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('/jadwal', JadwalController::class);
     Route::resource('/laporan', LaporanController::class);
     Route::resource('/payment', PaymentController::class);
-    Route::resource('/user', UserController::class);
     Route::resource('/kost', KostController::class);
     Route::get('/api/kontak/{id}', 'App\Http\Controllers\KontakController@getJsonKontak')->name('api.kontak');
     Route::get('api/dashboard', [APIDashboardController::class, 'getDashboardData']);
 });
+Route::middleware(['AdminMiddleware'])->group(function () {
+    Route::resource('/user', UserController::class)->middleware('auth', 'admin');
+});
+
 route::resource('/test', TestController::class);
 
 require __DIR__ . '/auth.php';

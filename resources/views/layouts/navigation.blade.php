@@ -169,7 +169,7 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('kontak.index')" :active="request()->routeIs('kontak.index')">
+            <x-responsive-nav-link :href="route('kost.index')" :active="request()->routeIs('kost.index')">
                 {{ __('Kost') }}
             </x-responsive-nav-link>
         </div>
@@ -178,6 +178,11 @@
                 {{ __('Laporan') }}
             </x-responsive-nav-link>
         </div>
+        @if (Auth::user()->role === 'admin')
+            <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+        @endif
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('jadwal.index')" :active="request()->routeIs('jadwal.index')">
                 {{ __('Jadwal') }}
