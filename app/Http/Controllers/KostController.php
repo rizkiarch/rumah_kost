@@ -121,8 +121,13 @@ class KostController extends Controller
             toastr()->success('Data berhasil dihapus!');
             return redirect()->route('kost.index')->with('Success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
-            toastr()->error('Data gagal dihapus!');
-            return redirect()->route('kost.index')->with('Success', 'Data gagal dihapus');
+            if ($th instanceof \Illuminate\Database\QueryException && $th->errorInfo[1] == 1451) {
+                toastr()->error('Data gagal dihapus! Karena ada Penghuni yang menempati');
+                return redirect()->route('kost.index')->with('error', 'Data gagal dihapus');
+            } else {
+                toastr()->error('Data gagal dihapus! ' . $th->getMessage());
+                return redirect()->route('kost.index')->with('error', 'Data gagal dihapus');
+            }
         }
     }
 }
