@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\Setting;
 
-trait WatsappTrait
+trait WatsappTraitBackup
 {
 
     public function __construct()

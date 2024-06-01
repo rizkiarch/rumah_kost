@@ -70,7 +70,8 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama
                                 Lengkap</label>
                             <input type="text" autocomplete="off" name="nama_lengkap" id="nama_lengkap"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
+                                required>
                         </div>
                         <div class="mb-4">
                             <label for="nama_panggilan"
@@ -143,7 +144,8 @@
                             <label for="no_telpon"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Telpon</label>
                             <input type="number" autocomplete="off" name="no_telpon" id="no_telpon"
-                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                class="capitalize mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300"
+                                required>
                         </div>
 
                         <div class="mb-4">

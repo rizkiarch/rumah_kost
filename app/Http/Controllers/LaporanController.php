@@ -23,7 +23,7 @@ class LaporanController extends Controller
 
 
         $laporans = Laporan::with(['jadwal'])->orderBy('id', 'desc')->paginate(5);
-        $payments = Payment::with(['kontak'])->orderBy('id', 'desc')->paginate(5);
+        $payments = Payment::with(['kontak'])->orderBy('tanggal_pembayaran', 'desc')->paginate(5);
         return view('dashboard.laporan.index', [
             'title' => $title,
             'laporans' => $laporans,
@@ -79,12 +79,18 @@ class LaporanController extends Controller
                 'status' => 'terkirim'
             ]);
 
-            // $this->sendTextWatsapp($phone, $message);
-            $this->sendMessage($payload);
-
+            try {
+                $this->sendMessage($payload);
+            } catch (\Throwable $th) {
+                $this->sendTextWatsapp($phone, $message);
+            }
             toastr()->success('Data berhasil dikirim ulang!');
             return redirect()->route('laporan.index')->with('Success', 'Data berhasil dikirim ulang');
         } catch (\Throwable $th) {
+            $laporan->update([
+                'tanggal_terkirim' => Date::now(),
+                'status' => 'pending'
+            ]);
             toastr()->error('Data gagal dikirim ulang!');
             return redirect()->route('laporan.index')->with('Error', 'Data gagal dikirim ulang'); //throw $th;
         }

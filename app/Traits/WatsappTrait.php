@@ -46,10 +46,10 @@ trait WatsappTrait
             ),
         )); // tambahkan kurung tutup di sini
 
-        $result = curl_exec($curl);
+        $response  = curl_exec($curl);
         curl_close($curl);
 
-        return true; // tambahkan ini untuk mengembalikan respons dari curl
+        return $response; // tambahkan ini untuk mengembalikan respons dari curl
     }
 
     public static function sendMediaWatsapp($phone, $message)
@@ -84,10 +84,10 @@ trait WatsappTrait
             ),
         )); // tambahkan kurung tutup di sini
 
-        $result = curl_exec($curl);
+        $response = curl_exec($curl);
         curl_close($curl);
 
-        return $result; // tambahkan ini untuk mengembalikan respons dari curl
+        return $response; // tambahkan ini untuk mengembalikan respons dari curl
     }
 
     public static function sendMessage($payload = [])
@@ -96,7 +96,7 @@ trait WatsappTrait
             throw new \Exception("Payload must be an array", 400);
         }
 
-        $url = env('DOMAIN_SERVER_WATSAPP') . "/send-message";
+        $url = env('DOMAIN_SERVER_WATSAPP_Jagad') . "/send-message";
         $email = env('EMAIL_SERVER_WATSAPP');
         $password =  env('PASSWORD_SERVER_WATSAPP');
         $credentials = base64_encode("$email:$password");
@@ -124,9 +124,9 @@ trait WatsappTrait
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $defaultHeaders);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $result = curl_exec($ch);
+        $hasil = curl_exec($ch);
         curl_close($ch);
-        $response = json_decode($result, true) ?? [];
+        $response = json_decode($hasil, true) ?? [];
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($httpcode == 200) {
             return $response['data'] ?? [];

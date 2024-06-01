@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Kontak::class)->constrained()->cascadeOnDelete();
             $table->date('tanggal_kirim');
             $table->time('waktu_kirim');
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

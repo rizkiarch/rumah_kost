@@ -1,4 +1,8 @@
 <x-app-layout>
+    <?php
+    $readonly = Auth::user()->role === 'pengelola' ? 'readonly' : '';
+    
+    ?>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $title }}
@@ -15,7 +19,7 @@
                             <label for="no_telpon"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nomor Telepon
                                 Pengirim</label>
-                            <input type="number" name="no_telpon" id="no_telpon"
+                            <input type="number" {{ $readonly }} name="no_telpon" id="no_telpon"
                                 value="{{ $setting->no_telpon ?? '' }}"
                                 class="mt-1 p-2 w-full border border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-300">
                         </div>

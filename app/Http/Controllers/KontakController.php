@@ -26,7 +26,8 @@ class KontakController extends Controller
         // Kontak::chunk(1000, function ($data) use ($kontaks) {
         //     $kontaks->push($data);
         // });
-        $kontaks = Kontak::paginate(10);
+
+        $kontaks = Kontak::orderBy('nama_lengkap', 'asc')->paginate(10);
         return view('dashboard.data_master.kontak.index', [
             'title' => $title,
             'kontaks' => $kontaks
@@ -124,8 +125,7 @@ class KontakController extends Controller
         Jadwal::create([
             'kontak_id' => $kontak->id,
             'tanggal_kirim' => $tanggal_kirim,
-            'waktu_kirim' => Carbon::now()->format('H:i'),
-            'status' => 1
+            'waktu_kirim' => Carbon::now()->format('08:30'),
         ]);
     }
 

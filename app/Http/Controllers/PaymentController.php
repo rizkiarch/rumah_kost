@@ -106,10 +106,10 @@ class PaymentController extends Controller
         try {
             $payment->delete();
             toastr()->success('Data berhasil dihapus!');
-            return redirect()->route('laporan.index')->with('Success', 'Data berhasil dihapus');
+            return redirect()->back()->with('Success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
             toastr()->error('Data gagal disimpan!');
-            return redirect()->route('laporan.index')->with('Success', 'Data berhasil dihapus');
+            return redirect()->back()->with('Success', 'Data berhasil dihapus');
             // return response()->json([
             //     'status' => 'error',
             //     'message' => 'Message failed to send',

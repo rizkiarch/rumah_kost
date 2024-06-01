@@ -63,7 +63,8 @@ class Tagihan extends Command
                         ->first();
 
                     if ($laporan) {
-                        $this->sendMessage($payload);
+                        $this->sendTextWatsapp($phone, $message);
+                        // $this->sendMessage($payload);
                         $jadwal->update([
                             'tanggal_kirim' => $tanggal_tagihan_berikutnya,
                         ]);
@@ -114,7 +115,7 @@ class Tagihan extends Command
                 'tanggal_terkirim' => Carbon::now(),
                 'status' => 'gagal',
             ]);
-            \Log::info("Gagal Membuat laporan " . date('Y-m-d H:i:s'));
+            \Log::info("Gagal Membuat laporan " . $th->getMessage());
         }
     }
 }

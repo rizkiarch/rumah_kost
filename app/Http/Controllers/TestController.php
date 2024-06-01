@@ -40,7 +40,8 @@ class TestController extends Controller
     {
         try {
             $db_setting = Setting::first();
-            $message = $db_setting->format_text;
+            // $message = $db_setting->format_text;
+            $message = 'tes';
             $phone = $request->input('phone');
             $headers = $request->headers->all();
             $payload = [
@@ -51,7 +52,12 @@ class TestController extends Controller
             // $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
 
             // $message = Setting::get('format_text');
-            $result = $this->sendMessage($payload, $headers);
+            // $result = $this->sendMessage($payload, $headers);
+            // try {
+            //     $result = $this->sendMessage($payload);
+            // } catch (\Throwable $th) {
+            $result = $this->sendTextWatsapp($phone, $message);
+            // }
             return response()->json([
                 'status' => 'success',
                 'message' => 'Message sent successfully',

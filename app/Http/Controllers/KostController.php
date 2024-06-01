@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kost;
+use App\Models\Kontak;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class KostController extends Controller
 {
@@ -18,7 +21,7 @@ class KostController extends Controller
         // Kontak::chunk(1000, function ($data) use ($kontaks) {
         //     $kontaks->push($data);
         // });
-        $kosts = Kost::paginate(10);
+        $kosts = Kost::orderBy('kode', 'asc')->paginate(10);
         return view('dashboard.data_master.kost.index', [
             'title' => $title,
             'kosts' => $kosts
@@ -118,7 +121,7 @@ class KostController extends Controller
             toastr()->success('Data berhasil dihapus!');
             return redirect()->route('kost.index')->with('Success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
-            toastr()->error('Data gagal disimpan!');
+            toastr()->error('Data gagal dihapus!');
             return redirect()->route('kost.index')->with('Success', 'Data gagal dihapus');
         }
     }
