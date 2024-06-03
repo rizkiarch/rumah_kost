@@ -17,8 +17,14 @@ This application is a program I developed myself using the WhatsApp API and the 
 
 You can Run this project:
 
+First :
+
 ```bash
 composer update
+```
+
+```bash
+npm install
 ```
 
 ```bash
@@ -31,12 +37,10 @@ or
 php artisan migrate:fresh --seed
 ```
 
-```bash
-php artisan serve
-```
+Run Project
 
 ```bash
-npm install
+php artisan serve
 ```
 
 ```bash
