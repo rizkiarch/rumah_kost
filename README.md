@@ -9,9 +9,9 @@
 
 ## About Aplication
 
-Aplikasi ini adalah program yang saya buat sendiri dengan memanfaatkan API dari WhatsApp, menggunakan framework Laravel. Program ini dibuat sebagai bagian dari penyelesaian studi S1 saya. Tentunya, program ini masih memiliki banyak kekurangan.
+Aplikasi ini dirancang untuk mengotomatisasi penagihan iuran rumah kost dengan mengirimkan tagihan kost kepada penghuni secara otomatis. Program yang saya buat sendiri ini memanfaatkan API dari WhatsApp dan menggunakan framework Laravel. Program ini dibuat sebagai bagian dari penyelesaian studi S1 saya. Tentunya, program ini masih memiliki banyak kekurangan.
 
-This application is a program I developed myself using the WhatsApp API and the Laravel framework. It was created as part of my undergraduate thesis project. Naturally, the program still has many shortcomings.
+This application is designed to automate rent billing for boarding houses by sending rent invoices to tenants automatically. I developed this program myself, utilizing the WhatsApp API and the Laravel framework. It was created as part of my undergraduate thesis project. Naturally, the program still has many shortcomings.
 
 [![Video](https://img.youtube.com/vi/whR4LaSVDR8/maxresdefault.jpg)](https://www.youtube.com/watch?v=whR4LaSVDR8)
 ## How To Run
