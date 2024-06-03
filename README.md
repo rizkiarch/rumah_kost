@@ -13,6 +13,7 @@ Aplikasi ini adalah program yang saya buat sendiri dengan memanfaatkan API dari 
 
 This application is a program I developed myself using the WhatsApp API and the Laravel framework. It was created as part of my undergraduate thesis project. Naturally, the program still has many shortcomings.
 
+[![Video](https://img.youtube.com/vi/jXnoFqcAkQA/maxresdefault.jpg)](https://www.youtube.com/watch?v=jXnoFqcAkQA)
 ## How To Run
 
 You can Run this project:
