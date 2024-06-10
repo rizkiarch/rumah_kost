@@ -59,9 +59,9 @@ php artisan  schedule:work
 
 <p></p>
 
-<h2 id="dukungan">💌 Dukungan</h2>
+<h2 id="dukungan">💌 Support</h2>
 
-Kalian bisa mendukung saya di platform trakteer! Dukungan kalian akan sangat membantu untuk saya, namun dengan anda star project ini juga sudah sangat membantu lho!
+You can support me on Trakteer! Your support will mean a lot to me, but even just starring this project is a big help!
 
 <p></p>
 
