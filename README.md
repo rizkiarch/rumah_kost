@@ -23,7 +23,10 @@ This application is designed to automate rent billing for boarding houses by sen
 You can Run this project:
 
 First :
-
+```bash
+composer install
+```
+or
 ```bash
 composer update
 ```
@@ -31,13 +34,15 @@ composer update
 ```bash
 npm install
 ```
+or
+```bash
+npm update
+```
 
 ```bash
 php artisan migrate --seed
 ```
-
 or
-
 ```bash
 php artisan migrate:fresh --seed
 ```
