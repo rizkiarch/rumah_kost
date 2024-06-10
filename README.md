@@ -26,17 +26,9 @@ First :
 ```bash
 composer install
 ```
-or
-```bash
-composer update
-```
 
 ```bash
 npm install
-```
-or
-```bash
-npm update
 ```
 
 ```bash
