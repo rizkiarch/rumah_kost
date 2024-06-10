@@ -65,6 +65,5 @@ You can support me on Trakteer! Your support will mean a lot to me, but even jus
 
 <p></p>
 
-<a href="https://trakteer.id/mhdrzk" target="_blank"><img id="wse-buttons-preview" src="https://trakteer.id/images/mix/coffee.png" height="40" style="border:0px;height:40px;" alt="Trakteer Saya"></a>
-
+<script type='text/javascript' src='https://cdn.trakteer.id/js/embed/trbtn.min.js?date=18-11-2023'></script><script type='text/javascript'>(function(){var trbtnId=trbtn.init('Support Me on Trakteer','#be1e2d','https://trakteer.id/mhdrzk','https://trakteer.id/images/mix/coffee.png','40');trbtn.draw(trbtnId);})();</script>
 <p></p>
