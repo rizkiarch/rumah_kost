@@ -9,19 +9,20 @@
 
 ## About Aplication
 
-Aplikasi ini adalah program yang saya buat sendiri dengan memanfaatkan API dari WhatsApp, menggunakan framework Laravel. Program ini dibuat sebagai bagian dari penyelesaian studi S1 saya. Tentunya, program ini masih memiliki banyak kekurangan.
+Aplikasi ini dirancang untuk mengotomatisasi penagihan iuran rumah kost dengan mengirimkan tagihan kost kepada penghuni secara otomatis. Program yang saya buat dengan memanfaatkan API dari WhatsApp dan menggunakan framework Laravel. Program ini dibuat sebagai bagian dari penyelesaian studi S1 saya. Tentunya, program ini masih memiliki banyak kekurangan.
 
-This application is a program I developed myself using the WhatsApp API and the Laravel framework. It was created as part of my undergraduate thesis project. Naturally, the program still has many shortcomings.
+This application is designed to automate rent billing for boarding houses by sending rent invoices to tenants automatically. I developed this program, utilizing the WhatsApp API and the Laravel framework. It was created as part of my undergraduate thesis project. Naturally, the program still has many shortcomings.
 
+## Demo Video 
 [![Video](https://img.youtube.com/vi/whR4LaSVDR8/maxresdefault.jpg)](https://www.youtube.com/watch?v=whR4LaSVDR8)
+
 ## How To Run
 
 You can Run this project:
 
 First :
-
 ```bash
-composer update
+composer install
 ```
 
 ```bash
@@ -31,9 +32,7 @@ npm install
 ```bash
 php artisan migrate --seed
 ```
-
 or
-
 ```bash
 php artisan migrate:fresh --seed
 ```
@@ -53,3 +52,16 @@ npm run dev
 ```bash
 php artisan  schedule:work
 ```
+
+
+<p></p>
+
+<h2 id="dukungan">💌 Support</h2>
+
+You can support me on Trakteer! Your support will mean a lot to me, but even just starring this project is a big help!
+
+<p></p>
+
+<a href="https://trakteer.id/mhdrzk" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-6.png" height="40" style="border:0px;height:40px;" alt="Trakteer Saya"></a>
+
+<p></p>
