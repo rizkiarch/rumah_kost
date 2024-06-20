@@ -23,7 +23,7 @@ class Jadwal extends Model
         parent::boot();
 
         static::creating(function ($jadwal) {
-            $jadwal->status = 0; // Atur nilai status ke 0 saat pembuatan jadwal baru
+            $jadwal->status = 1; // Atur nilai status ke 0 saat pembuatan jadwal baru
         });
     }
 

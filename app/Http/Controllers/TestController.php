@@ -41,7 +41,7 @@ class TestController extends Controller
         try {
             $db_setting = Setting::first();
             // $message = $db_setting->format_text;
-            $message = 'tes';
+            $message = $request->input('message');
             $phone = $request->input('phone');
             $headers = $request->headers->all();
             $payload = [
@@ -57,6 +57,8 @@ class TestController extends Controller
             //     $result = $this->sendMessage($payload);
             // } catch (\Throwable $th) {
             $result = $this->sendTextWatsapp($phone, $message);
+            // $result = $this->sendMessages_Starsender($phone, $message);
+
             // }
             return response()->json([
                 'status' => 'success',

@@ -85,7 +85,7 @@ class PaymentController extends Controller
                 'nominal' => 'required',
             ]);
             $payment->update($data);
-            toastr()->success('Data berhasil disimpan!');
+            toastr()->success('Data berhasil diubah!');
             return redirect()->route('laporan.index')->with('Success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             return response()->json([

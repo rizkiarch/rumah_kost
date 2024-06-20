@@ -12,7 +12,7 @@ trait WatsappTrait
         //
     }
 
-    public function sendTextWatsapp($phone, $message)
+    public function sendTextWatsapp($phone, $message, $filePath)
     {
         $sender = Setting::latest()->value('no_telpon');
         $sender = preg_replace('/[^0-9]/', '', $sender);
@@ -46,8 +46,13 @@ trait WatsappTrait
             ),
         )); // tambahkan kurung tutup di sini
 
-        $response  = curl_exec($curl);
+        $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+
+        if ($httpcode != 200) { // Jika respons tidak berhasil (tidak 200 OK), maka jalankan sendMessages_Starsender
+            return $this->sendMessages_Starsender($phone, $message, $filePath);
+        }
 
         return $response; // tambahkan ini untuk mengembalikan respons dari curl
     }
@@ -133,5 +138,41 @@ trait WatsappTrait
         } else {
             throw new \Exception($response['message'] ?? "Failed to send message", $httpcode);
         }
+    }
+
+    public static function sendMessages_Starsender($phone, $message, $filePath)
+    {
+        $sender = Setting::latest()->value('no_telpon');
+        $sender = preg_replace('/[^0-9]/', '', $sender);
+        $sender = (str_starts_with($sender, '0')) ? '62' . substr($sender, 1) : $sender;
+
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
+
+        $apikey = env('API_KEY_STARSENDER');
+        $pesan = rawurlencode($message);
+        $tujuan = rawurlencode($phone . '@s.whatsapp.net');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://starsender.online/api/sendText?message=' . $pesan . '&tujuan=' . $tujuan,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('file' => curl_file_create($filePath)),
+            CURLOPT_HTTPHEADER => array(
+                'apikey: ' . $apikey,
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return $response;
     }
 }
