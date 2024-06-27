@@ -12,7 +12,7 @@ trait WatsappTrait
         //
     }
 
-    public function sendTextWatsapp($phone, $message, $filePath)
+    public function sendTextWatsapp_($phone, $message)
     {
         $sender = Setting::latest()->value('no_telpon');
         $sender = preg_replace('/[^0-9]/', '', $sender);
@@ -51,7 +51,7 @@ trait WatsappTrait
         curl_close($curl);
 
         if ($httpcode != 200) { // Jika respons tidak berhasil (tidak 200 OK), maka jalankan sendMessages_Starsender
-            return $this->sendMessages_Starsender($phone, $message, $filePath);
+            return $this->sendMessages_Starsender($phone, $message);
         }
 
         return $response; // tambahkan ini untuk mengembalikan respons dari curl
@@ -140,7 +140,7 @@ trait WatsappTrait
         }
     }
 
-    public static function sendMessages_Starsender($phone, $message, $filePath)
+    public static function sendMessages_Starsender($phone, $message)
     {
         $sender = Setting::latest()->value('no_telpon');
         $sender = preg_replace('/[^0-9]/', '', $sender);
@@ -164,9 +164,80 @@ trait WatsappTrait
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array('file' => curl_file_create($filePath)),
+            // CURLOPT_POSTFIELDS => array('file' => curl_file_create($filePath)),
             CURLOPT_HTTPHEADER => array(
                 'apikey: ' . $apikey,
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            curl_close($curl);
+            return 'cURL Error: ' . $error_msg;
+        }
+        curl_close($curl);
+
+        return $response;
+    }
+
+    public static function sendTextWatsapp($phone, $message)
+    {
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('DOMAIN_SERVER_WAPANELS') . '/api/create-message',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'appkey' => env('APPKEY_SERVER_WAPANELS'),
+                'authkey' => env('API_KEY_WAPANELS'),
+                'to' => $phone,
+                'message' => $message,
+                'sandbox' => 'false'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        if ($httpcode != 200) { // Jika respons tidak berhasil (tidak 200 OK), maka jalankan sendMessages_Starsender
+            return $this->sendMessages_Starsender($phone, $message);
+        }
+
+        return $response;
+    }
+
+    public static function sendFile($phone, $message, $file)
+    {
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => env('DOMAIN_SERVER_WAPANELS') . '/api/create-message',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'appkey' => env('APPKEY_SERVER_WAPANELS'),
+                'authkey' => env('API_KEY_WAPANELS'),
+                'to' => $phone,
+                'message' => $message,
+                'file' => 'https://en.m.wikipedia.org/wiki/File:PNG_Test.png',
+                'sandbox' => 'false'
             ),
         ));
 

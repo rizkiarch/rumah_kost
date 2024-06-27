@@ -43,11 +43,14 @@ class TestController extends Controller
             // $message = $db_setting->format_text;
             $message = $request->input('message');
             $phone = $request->input('phone');
+            $filePath = $request->input('file');
             $headers = $request->headers->all();
             $payload = [
                 'phone' => $phone,
-                'message' => $message
+                'message' => $message,
+                'file' => $filePath
             ];
+            // dd($payload);
             // $phone = Setting::get('no_telpon');
             // $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
 
@@ -56,8 +59,9 @@ class TestController extends Controller
             // try {
             //     $result = $this->sendMessage($payload);
             // } catch (\Throwable $th) {
-            $result = $this->sendTextWatsapp($phone, $message);
-            // $result = $this->sendMessages_Starsender($phone, $message);
+            // $result = $this->sendTextWatsapp($phone, $message);
+            // dd($payload);
+            $result = $this->sendFile($phone, $message, $filePath);
 
             // }
             return response()->json([

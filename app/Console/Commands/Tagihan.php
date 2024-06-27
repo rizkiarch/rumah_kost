@@ -47,7 +47,7 @@ class Tagihan extends Command
                 $tanggal_hari_ini = Carbon::now();
                 $waktu_hari_ini = $tanggal_hari_ini->format('H:i:s');
 
-                if ($tanggal_jadwal->isSameDay($tanggal_hari_ini) && $waktu_jadwal < $waktu_hari_ini) {
+                if ($tanggal_jadwal->isSameDay($tanggal_hari_ini) && $waktu_jadwal == $waktu_hari_ini) {
                     $db_setting = Setting::first();
                     $message = $db_setting->format_text;
                     $phone = $jadwal->kontak->no_telpon;
@@ -75,7 +75,7 @@ class Tagihan extends Command
                         ]);
                         \Log::info("Berhasil Mengirim Tagihan " . $jadwal->kontak->nama_lengkap . " di jalankan " . date('Y-m-d H:i:s'));
                     } else {
-                        \Log::info("Tidak ada laporan untuk jadwal " . $jadwal->kontak->nama_lengkap . " di jalankan " . date('Y-m-d H:i:s'));
+                        \Log::info("Tidak ada laporan untuk jadwal " . $jadwal->kontak->nama_lengkap . date('Y-m-d H:i:s'));
                     }
                 }
                 // $tanggal_hari_ini = Carbon::now();

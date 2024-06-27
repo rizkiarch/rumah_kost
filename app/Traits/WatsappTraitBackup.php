@@ -89,4 +89,61 @@ trait WatsappTraitBackup
 
         return $result; // tambahkan ini untuk mengembalikan respons dari curl
     }
+
+    public static function starsender_uploadfile()
+    {
+        $apikey="XrkpzOulTjAZt8J3dlUL:5";
+        $tujuan="6281296648532" //atau $tujuan="Group Chat Name";
+        $pesan="Hiii ini pesan test.";
+        $filePath="a.png";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://starsender.online/api/sendFilesUpload?message='.rawurlencode($pesan).'&tujuan='.rawurlencode($tujuan.'@s.whatsapp.net'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('file'=> curl_file_create($filePath)),
+            CURLOPT_HTTPHEADER => array(
+              'apikey: '.$apikey
+            ),
+          ));
+
+          $response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+    }
+
+    public static function Starsender_relogdevice()
+    {
+        // relog device
+        $apikey = "wmIKcQPQJw8wve54kNcj";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://starsender.online/api/relogDevice',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_HTTPHEADER => array(
+                'apikey: ' . $apikey
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
 }

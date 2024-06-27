@@ -25,12 +25,16 @@
                     @csrf
                     <div class="form-group">
                         <label for="number">No WA</label>
-                        <input type="text" name="phone" class="form-control" id="number" placeholder="No WA">
+                        <input type="number" name="phone" class="form-control" id="number" placeholder="No WA">
                     </div>
                     <div class="form-group">
                         <label for="\">Pesan</label>
                         <textarea name="message"
                             class="form-control" cols="30" rows="5" placeholder="Pesan"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Unggah File</label>
+                        <input type="file" name="file" class="form-control" id="file">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
