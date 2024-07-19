@@ -183,12 +183,15 @@ trait WatsappTrait
 
     public static function sendTextWatsapp($phone, $message)
     {
+        // Membersihkan dan memformat nomor telepon
         $phone = preg_replace('/[^0-9]/', '', $phone);
         $phone = (str_starts_with($phone, '0')) ? '62' . substr($phone, 1) : $phone;
+
+        // Inisialisasi cURL
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => env('DOMAIN_SERVER_WAPANELS') . '/api/create-message',
+            CURLOPT_URL => 'https://app.wapanels.com/api/create-message',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -205,16 +208,19 @@ trait WatsappTrait
             ),
         ));
 
+        // Eksekusi cURL dan ambil respons
         $response = curl_exec($curl);
         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
         if ($httpcode != 200) { // Jika respons tidak berhasil (tidak 200 OK), maka jalankan sendMessages_Starsender
             return $this->sendMessages_Starsender($phone, $message);
+        } else {
+            $responseArray = json_decode($response, true);
+            return $responseArray['data'] ?? [];
         }
-
-        return $response;
     }
+
 
     public static function sendFile($phone, $message, $file)
     {
@@ -236,7 +242,7 @@ trait WatsappTrait
                 'authkey' => env('API_KEY_WAPANELS'),
                 'to' => $phone,
                 'message' => $message,
-                'file' => 'https://en.m.wikipedia.org/wiki/File:PNG_Test.png',
+                'file' => $file,
                 'sandbox' => 'false'
             ),
         ));
