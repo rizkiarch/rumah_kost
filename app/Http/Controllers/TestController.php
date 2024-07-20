@@ -59,9 +59,9 @@ class TestController extends Controller
             // try {
             //     $result = $this->sendMessage($payload);
             // } catch (\Throwable $th) {
-            // $result = $this->sendTextWatsapp($phone, $message);
-            // dd($payload);
-            $result = $this->sendFile($phone, $message, $filePath);
+            $result = $this->sendTextWatsapp($phone, $message);
+            // $result = $this->sendFile($phone, $message, $filePath);
+            // dd($result);
 
             // }
             return response()->json([

@@ -47,14 +47,14 @@ class Tagihan extends Command
                 $tanggal_hari_ini = Carbon::now();
                 $waktu_hari_ini = $tanggal_hari_ini->format('H:i:s');
 
-                if ($tanggal_jadwal->isSameDay($tanggal_hari_ini) && $waktu_jadwal == $waktu_hari_ini) {
+                if ($tanggal_jadwal->isSameDay($tanggal_hari_ini) && $waktu_jadwal < $waktu_hari_ini) {
                     $db_setting = Setting::first();
                     $message = $db_setting->format_text;
                     $phone = $jadwal->kontak->no_telpon;
-                    $payload = [
-                        'phone' => $phone,
-                        'message' => $message
-                    ];
+                    // $payload = [
+                    //     'phone' => $phone,
+                    //     'message' => $message
+                    // ];
 
                     $tanggal_tagihan_berikutnya = $this->hitung_tanggal_tagihan_berikutnya($jadwal->tanggal_kirim);
                     $this->add_laporan($jadwal);
@@ -64,6 +64,7 @@ class Tagihan extends Command
                         ->first();
 
                     if ($laporan) {
+                        // self::sendTextWatsapp($phone, $message);
                         $this->sendTextWatsapp($phone, $message);
                         // $this->sendMessage($payload);
                         $jadwal->update([

@@ -17,4 +17,4 @@ Schedule::command('tagihan:cron')
     });
 
 Schedule::command('demo:cron')
-    ->everyMinute();
+    ->everyTwoHours();

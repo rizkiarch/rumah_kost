@@ -80,9 +80,9 @@ class LaporanController extends Controller
             ]);
 
             try {
-                $this->sendMessage($payload);
-            } catch (\Throwable $th) {
                 $this->sendTextWatsapp($phone, $message);
+            } catch (\Throwable $th) {
+                $this->sendMessage($payload);
             }
             toastr()->success('Data berhasil dikirim ulang!');
             return redirect()->route('laporan.index')->with('Success', 'Data berhasil dikirim ulang');
